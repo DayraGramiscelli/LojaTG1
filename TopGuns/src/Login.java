@@ -17,6 +17,11 @@ public class Login extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
+        initComponents();
+        setupListeners();
+    }
+
+    private void initComponents() {
         panel1 = new JPanel();
         panel1.setLayout(null);
         setContentPane(panel1);
@@ -44,17 +49,19 @@ public class Login extends JFrame {
         jbCancel = new JButton("Cancel");
         jbCancel.setBounds(180, 80, 80, 25);
         panel1.add(jbCancel);
+    }
 
+    private void setupListeners() {
         jbLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String username = jtfLogin.getText();
                 String password = new String(jtfSenha.getPassword());
 
                 if (validateLogin(username, password)) {
-                    JOptionPane.showMessageDialog(Login.this, "Login successful!");
-                    openMainMenu();
+                    JOptionPane.showMessageDialog(Login.this, "Logando...!");
+                    openMainManu();
                 } else {
-                    JOptionPane.showMessageDialog(Login.this, "Invalid username or password", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(Login.this, "Senha Invalida", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -70,9 +77,9 @@ public class Login extends JFrame {
         return "admin".equals(username) && "123".equals(password);
     }
 
-    public void openMainMenu() {
-        MainMenu.MainMenu mainMenu = new MainManu.MainMenu();
-        mainMenu.setVisible(true);
+    private void openMainManu() {
+        MainManu mainManu = new MainManu();
+        mainManu.setVisible(true);
         this.dispose();
     }
 
@@ -82,5 +89,15 @@ public class Login extends JFrame {
                 new Login().setVisible(true);
             }
         });
+    }
+}
+
+class MainMenu extends JFrame {
+    public MainMenu() {
+        setTitle("Main Menu");
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
     }
 }

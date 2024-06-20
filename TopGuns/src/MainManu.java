@@ -1,9 +1,11 @@
+import com.sun.security.auth.module.JndiLoginModule;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MainMenu extends JFrame {
+public class MainManu extends JFrame {
     private JTabbedPane tabbedPane1;
     private JPanel cadastrosPanel;
     private JPanel vendasPanel;
@@ -13,49 +15,78 @@ public class MainMenu extends JFrame {
     private JButton produtosButton;
     private JButton fornecedoresButton;
     private JButton iniciarNovaVendaButton;
-    private JButton estoqueButton;
     private JButton produtosButton1;
+    private JButton cadFuncionarios;
+    private JTabbedPane paneVendas;
+    private JTabbedPane paneRl;
+    private JButton rlEstoque;
+    private JButton rlClientes;
+    private JButton rlFuncionarios;
+    private JButton rlVendas;
+    private JButton rlFornecedor;
+    private JButton vitrineProdutos;
+    private JTabbedPane tabbedPane2;
+    private JTabbedPane tabbedPane3;
+    private JButton funcionariosButton1;
+    private JButton rlFornecedores;
 
-    public MainMenu() {
+    public MainManu() {
         setTitle("Menu Principal");
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Initialize tabbed pane
+
         tabbedPane1 = new JTabbedPane();
 
-        // Initialize panels for each tab
         cadastrosPanel = new JPanel();
         vendasPanel = new JPanel();
         relatoriosPanel = new JPanel();
 
-        // Set layout for each panel
         cadastrosPanel.setLayout(new GridLayout(4, 1, 10, 10));
         vendasPanel.setLayout(new GridLayout(2, 1, 10, 10));
         relatoriosPanel.setLayout(new GridLayout(1, 1, 10, 10));
 
-        // Initialize buttons
+        // Botões  de cadastro
         clientesButton = new JButton("Clientes");
-        funcionariosButton = new JButton("Funcionários");
+        funcionariosButton = new JButton("Funcionarios");
         produtosButton = new JButton("Produtos");
         fornecedoresButton = new JButton("Fornecedores");
+
+        // Botões de vendas
         iniciarNovaVendaButton = new JButton("Iniciar nova venda");
         produtosButton1 = new JButton("Produtos");
-        estoqueButton = new JButton("Estoque");
+        funcionariosButton1 = new JButton("");
+        vitrineProdutos = new JButton("Vitrine Produtos");
+        cadFuncionarios = new JButton("CadastroFuncionairos");
 
-        // Add buttons to their respective panels
+        //  // Botões  de Relatorios
+        rlEstoque = new JButton(" Estoque");
+        rlClientes = new JButton(" Clientes");
+        rlFornecedor  = new JButton(" Fornecedor");
+        rlFuncionarios = new JButton("Funcionario");
+        rlVendas = new JButton("Vendas");
+
+
+        // Adiciona os botões aos painel
+        // Botõoes Cadastro
         cadastrosPanel.add(clientesButton);
         cadastrosPanel.add(funcionariosButton);
         cadastrosPanel.add(produtosButton);
         cadastrosPanel.add(fornecedoresButton);
 
+        // Vendas
         vendasPanel.add(iniciarNovaVendaButton);
         vendasPanel.add(produtosButton1);
 
-        relatoriosPanel.add(estoqueButton);
+        // Relatorios
+        relatoriosPanel.add(rlClientes);
+        relatoriosPanel.add(rlFornecedor);
+        relatoriosPanel.add(rlEstoque);
+        relatoriosPanel.add(rlFuncionarios);
+        relatoriosPanel.add(rlVendas);
 
-        // Add panels to tabbed pane
+
         tabbedPane1.addTab("Cadastros", cadastrosPanel);
         tabbedPane1.addTab("Vendas", vendasPanel);
         tabbedPane1.addTab("Relatórios", relatoriosPanel);
@@ -63,7 +94,7 @@ public class MainMenu extends JFrame {
         // Add tabbed pane to the frame
         add(tabbedPane1);
 
-        // Add action listeners for buttons
+        // Adicionar evento nos botões
         clientesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -99,7 +130,7 @@ public class MainMenu extends JFrame {
             }
         });
 
-        estoqueButton.addActionListener(new ActionListener() {
+        rlEstoque.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 handleEstoqueButton();
@@ -113,64 +144,97 @@ public class MainMenu extends JFrame {
             }
         });
     }
-
+    // Bloco de codigo Handle, onde e especificado o que será realizado no botão
     private void handleClientesButton() {
-        // Logic for handling Clientes button
         openCadastroClientes();
     }
 
     private void handleFuncionariosButton() {
-        // Logic for handling Funcionários button
         openCadastroFuncionarios();
     }
 
     private void handleProdutosButton() {
-        // Logic for handling Produtos button
         openCadastroProdutos();
     }
 
     private void handleFornecedoresButton() {
-        // Logic for handling Fornecedores button
-        JOptionPane.showMessageDialog(this, "Fornecedores button clicked!");
+        openCadastroFornecedores();
     }
 
     private void handleIniciarNovaVendaButton() {
-        // Logic for handling Iniciar Nova Venda button
-        JOptionPane.showMessageDialog(this, "Iniciar Nova Venda button clicked!");
+        JOptionPane.showMessageDialog(this, "Iniciar Nova Venda inativo!");
     }
 
     private void handleEstoqueButton() {
-        // Logic for handling Estoque button
-        JOptionPane.showMessageDialog(this, "Estoque button clicked!");
+        JOptionPane.showMessageDialog(this, "Armas\n" +
+                "Typhoon: 10 unidades\n" +
+                "CTT .40: 15 unidades\n" +
+                "Fal .762: 5 unidades\n" +
+                "M4 A1 .556: 20 unidades\n" +
+                "Cal. 12 CBC Pump: 8 unidades\n" +
+                "Imbel MD1: 12 unidades\n" +
+                "PT 92 9mm: 30 unidades\n" +
+                "PT 100 .40: 25 unidades\n" +
+                "TH 9: 18 unidades\n" +
+                "Desert Eagle .50: 7 unidades\n" +
+                "P90: 14 unidades\n" +
+                "AWM: 6 unidades\n" +
+                "AK47: 9 unidades\n" +
+                " \n" +
+                "Munições\n" +
+                "Munição 9mm: 100 unidades\n" +
+                "Munição .40: 80 unidades\n" +
+                "Munição .45: 60 unidades\n" +
+                "Munição 5.56: 120 unidades\n" +
+                "Munição 7.62: 90 unidades\n" +
+                " \n" +
+                "Acessórios\n" +
+                "Mira Holográfica: 50 unidades\n" +
+                "Lanterna Tática: 40 unidades\n" +
+                "Grip Vertical: 30 unidades\n" +
+                "Silenciador: 20 unidades\n" +
+                "Coronha Retrátil: 25 unidades");
     }
 
-    private void handleProdutosButton1() {
-        // Logic for handling Produtos 1 button
-        JOptionPane.showMessageDialog(this, "Produtos 1 button clicked!");
-    }
+    private void handleProdutosButton1() { openVitrineProdutosGui(); }
 
+    // Blocos para abrir a tela de cadastro.
+    //  Abrir  cadastro de  cliente
     private void openCadastroClientes() {
         CadastroClientes cadastroClientes = new CadastroClientes();
         cadastroClientes.setVisible(true);
         this.dispose();
     }
 
+    //  Abrir  cadastro de Funcionarios
     private void openCadastroFuncionarios() {
         CadastroFuncionarios cadastroFuncionarios = new CadastroFuncionarios();
         cadastroFuncionarios.setVisible(true);
         this.dispose();
     }
-
+    //  Abrir  cadastro de Produto
     private void openCadastroProdutos() {
         CadastroProdutos cadastroProdutos = new CadastroProdutos();
         cadastroProdutos.setVisible(true);
+        this.dispose();
+    }
+    //Abrir  cadastro de Fornecedores
+    private void openCadastroFornecedores() {
+        CadastroFornecedores cadastroFornecedores = new CadastroFornecedores();
+        cadastroFornecedores.setVisible(true);
+        this.dispose();
+    }
+    //Abrir Produtos em Vendas
+    private void openVitrineProdutosGui() {
+        VitrineProdutosGui vitrineProdutosGui = new VitrineProdutosGui();
+        vitrineProdutosGui.setVisible(true);
         this.dispose();
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new MainMenu().setVisible(true);
+                new MainManu().setVisible(true);
             }
         });
     }

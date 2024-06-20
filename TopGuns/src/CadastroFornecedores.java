@@ -5,55 +5,19 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class CadastroFuncionarios extends JFrame {
-    private JTextField textFieldId;
+public class CadastroFornecedores extends JFrame {
+    private JPanel panel1;
     private JTextField textFieldNome;
+    private JTextField textFieldId;
+    private JTextField textFieldTelefone;
+    private JTextField textFieldEndereco;
     private JTextField textFieldEmail;
-    private JTextField textFieldCargo;
-    private JTextField textFieldCpf;
-    private JTextField textFieldSalario;
-    private JLabel labelId;
-    private JLabel labelNome;
-    private JLabel labelEmail;
-    private JLabel labelCargo;
-    private JLabel labelCpf;
-    private JLabel labelSalario;
-    private JButton limparButton;
+    private JTextField textFieldCnpj;
     private JButton salvarButton;
+    private JButton limparButton;
     private JButton cancelarButton;
 
-    public CadastroFuncionarios() {
-        setTitle("Cadastro de Funcionários");
-        initComponents();
-        setupLayout();
-        setupListeners();
-
-        setSize(600, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-    }
-
-    private void initComponents() {
-        // Initialize components
-        labelId = new JLabel("ID:");
-        labelNome = new JLabel("Nome:");
-        labelEmail = new JLabel("E-mail:");
-        labelCargo = new JLabel("Cargo:");
-        labelCpf = new JLabel("CPF:");
-        labelSalario = new JLabel("Salário:");
-
-        textFieldId = new JTextField(20);
-        textFieldNome = new JTextField(20);
-        textFieldEmail = new JTextField(20);
-        textFieldCargo = new JTextField(20);
-        textFieldCpf = new JTextField(20);
-        textFieldSalario = new JTextField(20);
-
-        limparButton = new JButton("Limpar");
-        salvarButton = new JButton("Salvar");
-        cancelarButton = new JButton("Cancelar");
-    }
-
+    // Layout Painel
     private void setupLayout() {
         JPanel panel = new JPanel();
         GroupLayout layout = new GroupLayout(panel);
@@ -61,22 +25,29 @@ public class CadastroFuncionarios extends JFrame {
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
 
+        JLabel labelId = new JLabel("ID");
+        JLabel labelNome = new JLabel("Nome");
+        JLabel labelTelefone = new JLabel("Telefone");
+        JLabel labelEndereco = new JLabel("Endereço");
+        JLabel labelEmail = new JLabel("Email");
+        JLabel labelCnpj = new JLabel("CNPJ");
+
         layout.setHorizontalGroup(
                 layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                                 .addComponent(labelId)
                                 .addComponent(labelNome)
+                                .addComponent(labelTelefone)
+                                .addComponent(labelEndereco)
                                 .addComponent(labelEmail)
-                                .addComponent(labelCargo)
-                                .addComponent(labelCpf)
-                                .addComponent(labelSalario))
+                                .addComponent(labelCnpj))
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                 .addComponent(textFieldId)
                                 .addComponent(textFieldNome)
+                                .addComponent(textFieldTelefone)
+                                .addComponent(textFieldEndereco)
                                 .addComponent(textFieldEmail)
-                                .addComponent(textFieldCargo)
-                                .addComponent(textFieldCpf)
-                                .addComponent(textFieldSalario)
+                                .addComponent(textFieldCnpj)
                                 .addGroup(layout.createSequentialGroup()
                                         .addComponent(limparButton)
                                         .addComponent(salvarButton)
@@ -92,17 +63,17 @@ public class CadastroFuncionarios extends JFrame {
                                 .addComponent(labelNome)
                                 .addComponent(textFieldNome))
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(labelTelefone)
+                                .addComponent(textFieldTelefone))
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(labelEndereco)
+                                .addComponent(textFieldEndereco))
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(labelEmail)
                                 .addComponent(textFieldEmail))
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(labelCargo)
-                                .addComponent(textFieldCargo))
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(labelCpf)
-                                .addComponent(textFieldCpf))
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(labelSalario)
-                                .addComponent(textFieldSalario))
+                                .addComponent(labelCnpj)
+                                .addComponent(textFieldCnpj))
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(limparButton)
                                 .addComponent(salvarButton)
@@ -110,6 +81,30 @@ public class CadastroFuncionarios extends JFrame {
         );
 
         add(panel);
+    }
+
+    public CadastroFornecedores() {
+        setTitle("Cadastro de Fornecedores");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        initComponents();
+        setupLayout();
+        setSize(600, 400);
+    }
+
+    private void initComponents() {
+        panel1 = new JPanel();
+        textFieldId = new JTextField(20);
+        textFieldNome = new JTextField(20);
+        textFieldTelefone = new JTextField(20);
+        textFieldEndereco = new JTextField(20);
+        textFieldEmail = new JTextField(20);
+        textFieldCnpj = new JTextField(20);
+        salvarButton = new JButton("Salvar");
+        limparButton = new JButton("Limpar");
+        cancelarButton = new JButton("Cancelar");
+
+        setupListeners();
     }
 
     private void setupListeners() {
@@ -125,10 +120,8 @@ public class CadastroFuncionarios extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     salvarDados();
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(CadastroFuncionarios.this, "Erro: O valor do salário deve ser um número válido.", "Erro de Formato", JOptionPane.ERROR_MESSAGE);
                 } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(CadastroFuncionarios.this, "Erro ao salvar dados: " + ex.getMessage(), "Erro de Arquivo", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(CadastroFornecedores.this, "Erro ao salvar dados: " + ex.getMessage(), "Erro de Arquivo", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -136,7 +129,7 @@ public class CadastroFuncionarios extends JFrame {
         cancelarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose(); // Fecha a janela do cadastro de funcionários
+                dispose(); // Fecha a janela do cadastro de fornecedores
             }
         });
     }
@@ -144,50 +137,44 @@ public class CadastroFuncionarios extends JFrame {
     private void limparCampos() {
         textFieldId.setText("");
         textFieldNome.setText("");
+        textFieldTelefone.setText("");
+        textFieldEndereco.setText("");
         textFieldEmail.setText("");
-        textFieldCargo.setText("");
-        textFieldCpf.setText("");
-        textFieldSalario.setText("");
+        textFieldCnpj.setText("");
     }
 
     private void salvarDados() throws IOException {
         String id = textFieldId.getText();
         String nome = textFieldNome.getText();
+        String telefone = textFieldTelefone.getText();
+        String endereco = textFieldEndereco.getText();
         String email = textFieldEmail.getText();
-        String cargo = textFieldCargo.getText();
-        String cpf = textFieldCpf.getText();
+        String cnpj = textFieldCnpj.getText();
 
-        // Tratamento da exceção NumberFormatException
-        float salario;
-        try {
-            salario = Float.parseFloat(textFieldSalario.getText());
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Erro: O valor do salário deve ser um número válido.", "Erro de Formato", JOptionPane.ERROR_MESSAGE);
-            return; // Sai do método sem salvar se houver erro de formato
-        }
+        // Cria um novo fornecedor com todos os parâmetros necessários
+        Fornecedores fornecedor = new Fornecedores(id, nome, telefone, endereco, email, cnpj);
 
-        // Crie um novo funcionário com todos os parâmetros necessários
-        Funcionarios funcionario = new Funcionarios(id, nome, email, cargo, cpf, salario, "Outra Informação");
+        String path = "fornecedores.txt";
+        salvarNoArquivo(fornecedor, path);
 
-        String path = "funcionarios.txt";
-        salvarNoArquivo(funcionario, path);
-
-        JOptionPane.showMessageDialog(this, "Dados salvos com sucesso!\n" + funcionario.toString());
+        JOptionPane.showMessageDialog(this, "Dados salvos com sucesso!\n" + fornecedor.toString());
 
         limparCampos();
     }
 
-    private void salvarNoArquivo(Funcionarios funcionario, String path) throws IOException {
+    private void salvarNoArquivo(Fornecedores fornecedor, String path) throws IOException {
         try (BufferedWriter buffWrite = new BufferedWriter(new FileWriter(path, true))) {
-            buffWrite.append(funcionario.toString()).append("\n");
+            buffWrite.append(fornecedor.toString()).append("\n");
         }
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new CadastroFuncionarios().setVisible(true);
+                new CadastroFornecedores().setVisible(true);
             }
         });
     }
 }
+
+

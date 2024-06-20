@@ -19,7 +19,7 @@ public class Funcionarios extends Pessoas {
         this.cpf = cpf;
     }
 
-    // Getters e setters
+    // Get e Set
     public int getId() {
         return id;
     }
